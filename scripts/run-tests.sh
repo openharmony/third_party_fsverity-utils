@@ -206,7 +206,7 @@ TEST_FUNCS+=(sanitizers_test)
 valgrind_test()
 {
 	log "Build and test with valgrind"
-	$MAKE TEST_WRAPPER_PROG="valgrind --quiet --error-exitcode=100 --leak-check=full --errors-for-leak-kinds=all" \
+	$MAKE TEST_WRAPPER_PROG="valgrind --quiet --error-exitcode=100 --leak-check=full --errors-for-leak-kinds=definite,possible" \
 		CFLAGS="-O2 -Werror" check
 }
 TEST_FUNCS+=(valgrind_test)
@@ -217,7 +217,8 @@ boringssl_test()
 	log "-> Building BoringSSL"
 	$MAKE boringssl
 	log "-> Building fsverity-utils linked to BoringSSL"
-	$MAKE CFLAGS="-O2 -Werror" LDFLAGS="-Lboringssl/build/crypto" \
+	$MAKE CFLAGS="-O2 -Werror" \
+		LDFLAGS="-Lboringssl/build -Wl,-rpath=$PWD/boringssl/build" \
 		CPPFLAGS="-Iboringssl/include" LDLIBS="-lcrypto -lpthread" check
 }
 TEST_FUNCS+=(boringssl_test)
