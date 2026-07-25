@@ -37,6 +37,11 @@ config("libfsverity_public_config") {
 
 ohos_shared_library("libfsverity_utils") {
   branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
   sources = [
     "lib/compute_digest.c",
     "lib/enable.c",
@@ -57,6 +62,11 @@ ohos_shared_library("libfsverity_utils") {
 
 ohos_static_library("libfsverity_utils_static") {
   branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
   sources = [
     "lib/compute_digest.c",
     "lib/enable.c",
