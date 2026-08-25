@@ -49,6 +49,12 @@ ohos_shared_library("libfsverity_utils") {
     "lib/sign_digest.c",
     "lib/utils.c",
   ]
+  version_script = "libfsverity_utils.versionscript"
+  cflags_cc = [
+    "-Os",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+  ]
   external_deps = [ "openssl:libcrypto_shared" ]
   configs = [ ":common_config" ]
   public_configs = [ ":libfsverity_public_config" ]
